@@ -2,7 +2,6 @@
     <div class="navbar"> 
       <img src="../assets/logo.png"> 
      <p class="navbar-item"><span class="customBold">Link</span>VOTE <span class="customThin">Challenge</span></p>
-    
   </div>
 </template>
 

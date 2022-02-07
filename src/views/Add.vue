@@ -1,6 +1,6 @@
 <template>
 <div class="addArea"> 
-  <Notification :itemName="itemNameForNotification" :isNotificationActive="isNotificationActive" :title="notificationMessage"/>
+  <Notification :notificationObj="notificationOptions" > </Notification>
  <p class="returnToList"> <router-link  to="/"> <i class="fas fa-arrow-left"></i> Return to List </router-link> </p>
   <h3>Add New Link</h3>
   <div class="addLink">
@@ -37,9 +37,7 @@ components: {Notification},
       linkUrl: null,
       errorMsg: null,
       count:0,
-      notificationMessage: null,
-      isNotificationActive: false,
-      itemNameForNotification: null,
+      notificationOptions: {itemNameForNotification: null, isNotificationActive:false, notificationMessage: null }
     }
   },
   
@@ -60,17 +58,18 @@ components: {Notification},
         this.linkList.push(obj);
         this.clearInputs();
         localStorage.setItem('linkList', JSON.stringify(this.linkList));
-        this.itemNameForNotification = obj.linkName;
-        this.notificationMessage = ' successfully added.'
+        this.notificationOptions.itemNameForNotification = obj.linkName;
+        this.notificationOptions.notificationMessage = ' successfully added.'
         this.showToast();
         this.errorMsg = '';
+        console.log('obbbb',this.notificationOptions)
       }
     },
 
     showToast(){
-      this.isNotificationActive = true;
+      this.notificationOptions.isNotificationActive = true;
       setTimeout(()=>{
-       this.isNotificationActive = false;
+       this.notificationOptions.isNotificationActive = false;
       },2500);
     },
 

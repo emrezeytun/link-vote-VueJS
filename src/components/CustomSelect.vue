@@ -2,7 +2,7 @@
     <div class="custom-select">
       <select  @change="sortListEmit($event.target.value)"> 
       <option  disabled selected> Order By </option> 
-      <option  v-for="(option) of options" :key="option" :value="option.value"> {{option.text}} </option> 
+      <option  v-for="(option,index) of options" :key="index" :value="option.value"> {{option.text}} </option> 
       </select>
     </div>
 </template>

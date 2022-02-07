@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Notification :title="notificationMessage" :isNotificationActive="isNotificationActive" :itemName="itemName" />
+     <Notification :notificationObj="notificationOptions" > </Notification>
     
     <Modal :linkObj="removingItemObj" :modalStatus="isModalActive" @deletinObjId="removeItem" > </Modal>
 
@@ -27,9 +27,6 @@
     </div>
     <Pagination  v-if="paginationObj.arrLength > 0" @currentPageVal="currentPageChanged" :pagination="paginationObj"> </Pagination>
     </div>
-
-    
-
   </div>
 </template>
 
@@ -59,11 +56,18 @@ export default {
       notificationMessage: null,
       isNotificationActive: false,
       itemName: null,
+       notificationOptions: {itemNameForNotification: null, isNotificationActive:false, notificationMessage: null }
     }
   },
 
   created() {
     
+  },
+
+  watch: {
+    'notificationOptions.isNotificationActive': function (){
+        this.$emit('notificationOptionsEmit', this.notificationOptions)
+     },
   },
 
   methods: {
@@ -75,17 +79,17 @@ export default {
 
     removeItem(id) {
       this.linkList = this.getItemFromLS();
-      this.itemName = this.linkList.find(item => item.id == id);
-      this.itemName = this.itemName.linkName;
-      this.notificationMessage = " successfully deleted."
-      this.isNotificationActive = true;
+      this.notificationOptions.itemNameForNotification = this.linkList.find(item => item.id == id);
+      this.notificationOptions.itemNameForNotification = this.notificationOptions.itemNameForNotification.linkName;
+      this.notificationOptions.notificationMessage = " successfully deleted."
+      this.notificationOptions.isNotificationActive = true;
       this.linkList = this.linkList.filter(item => item.id != id);
       this.isModalActive = false;
       this.setLS();
       this.paginationObj.currentPage = 1;
       this.pagination();
       setTimeout(() => {
-        this.isNotificationActive = false;
+        this.notificationOptions.isNotificationActive = false;
       }, 1500)
     },
     setLS() {

@@ -1,7 +1,7 @@
 <template>
-    <div v-if="isNotificationActive" class="notificationToast">
+    <div v-if="notificationObj.isNotificationActive" class="notificationToast">
         <div class="notificationItem">
-             <p> <span> {{itemName}} </span> {{title}}</p>   
+             <p> <span> {{notificationObj.itemNameForNotification}} </span> {{notificationObj.notificationMessage}}</p>   
         </div>
     </div>
 </template>
@@ -9,17 +9,11 @@
 <script>
     export default {
         name: "Notification",
-        props: {
-            title:{
-                type: String
-            },
-            isNotificationActive: {
-                type: Boolean
-            },
-            itemName: {
-                type: String
+        props: { 
+            notificationObj: {
+                type: Object
             }
-        }
+        },
     }
 </script>
 

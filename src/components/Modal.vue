@@ -21,7 +21,7 @@
 export default {
     props: {
         linkObj: {
-            type: String
+            type: Object
         },
         modalStatus: {
             type: Boolean
