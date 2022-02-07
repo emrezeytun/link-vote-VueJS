@@ -1,8 +1,6 @@
 import Notification from '../components/Notification';
 import Vue from 'vue'
 
-
-
 describe('Notification.vue', () => {
 
 

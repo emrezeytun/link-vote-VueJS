@@ -13,12 +13,10 @@
       <label for="linkUrl"> Link URL: </label>
       <input placeholder="e.g. http://abc.xyz" v-model="linkUrl" id="linkUrl" type="text">
        </div>
-     
       <button type="submit" class="button"> Add </button>
+      <p class="error"> {{errorMsg}} </p>
     </form>
   </div>
- 
- 
    </div>
 </template>
 
@@ -26,6 +24,8 @@
 import Notification from '../components/Notification'
 
 export default {
+
+name: 'Add',
 
 components: {Notification},
 
@@ -43,7 +43,6 @@ components: {Notification},
     }
   },
   
-
   mounted(){
     if(localStorage.getItem('linkList')) {
       this.linkList = JSON.parse(localStorage.getItem('linkList'));
@@ -101,6 +100,9 @@ components: {Notification},
     font-weight: 600;
   }
 
+  .error {
+    color: red;
+  }
 
   .addLink {
     margin-top: 1rem;

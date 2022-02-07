@@ -16,10 +16,10 @@ module.exports = {
       'jest-serializer-vue'
     ],
     testMatch: [
-        "**/test/**/CustomSelect.spec.{j,t}s?(x)",
         "**/test/**/Modal.spec.{j,t}s?(x)",
         "**/test/**/Notification.spec.{j,t}s?(x)",
         "**/test/**/Pagination.spec.{j,t}s?(x)",
+        "**/test/**/Add.spec.{j,t}s?(x)",
     ],
     testURL: 'http://localhost/',
     watchPlugins: [

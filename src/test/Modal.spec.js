@@ -1,5 +1,4 @@
 import Modal from '../components/Modal';
-import {shallowMount} from '@vue/test-utils'
 import Vue from 'vue'
 
 describe('Modal.vue', () => {

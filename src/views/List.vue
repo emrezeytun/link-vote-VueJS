@@ -1,10 +1,11 @@
 <template>
   <div class="home">
-    <Notification :title="notificationMessage" :isNotificationActive="isNotificationActive" :itemName="itemName"> </Notification>
+    <Notification :title="notificationMessage" :isNotificationActive="isNotificationActive" :itemName="itemName" />
+    
     <Modal :linkObj="removingItemObj" :modalStatus="isModalActive" @deletinObjId="removeItem" > </Modal>
 
     <div class="box"> 
-<router-link to="/add">
+    <router-link to="/add">
     <div class="addLinkArea">  
       <div class="square"> <p> <i class="fas fa-plus"></i> </p> </div>
       <div class="linkAreaDescription"> <p> SUBMIT A LINK </p>  </div>
@@ -14,17 +15,17 @@
    <CustomSelect  v-if="paginationObj.arrLength > 0" ref="cSelect" :options="optionsObj" @selectedVal="sortList" > </CustomSelect>
     <div v-for="(item,index) in linkList" :key="index" class="linkListArea">  
       <div class="square"> <div class="voteStatsArea"> {{item.count}} <h4 class="voteDescription"> POINTS </h4>  </div>    </div>
-      <div class="" style="display: flex; flex-direction: column;"> 
-      <div class="linkAreaDescription"> <p style="margin-bottom: 0.1rem; margin:0; font-weight: 700;  text-align:left;"> {{item.linkName}} </p>  </div>
-       <p style="max-width: 200px; padding:0; margin:0; opacity: .6; font-size: 10px; text-align:left;"> <a :href="item.linkUrl"> ( {{item.linkUrl}} ) </a> </p>
-      <div class="voteButtons" style="">
-          <p v-on:click="vote(item.id,'up')" style="font-size: 12px; color: #babdbf;"> <i class="fas fa-arrow-up"></i> Up Vote </p>  
-          <p v-on:click="vote(item.id,'down')" style="font-size: 12px; color: #babdbf;"> <i class="fas fa-arrow-down"></i> Down Vote </p>  
+      <div class="d-flex-direction-column"> 
+      <div class="linkAreaDescription"> <p class="linkName"> {{item.linkName}} </p>  </div>
+       <p class="voteArea"> <a :href="item.linkUrl"> ( {{item.linkUrl}} ) </a> </p>
+      <div class="voteButtons">
+          <p v-on:click="vote(item.id,'up')"> <i class="fas fa-arrow-up"></i> Up Vote </p>  
+          <p v-on:click="vote(item.id,'down')"> <i class="fas fa-arrow-down"></i> Down Vote </p>  
       </div>
       </div>
-        <div v-on:click="openModal(item.id)"  class="remove " style=""> <i class="fas fa-minus"></i>  </div>
+        <div v-on:click="openModal(item.id)"  class="remove"> <i class="fas fa-minus"></i>  </div>
     </div>
-    <Pagination v-if="paginationObj.arrLength > 0" @currentPageVal="currentPageChanged" :pagination="paginationObj"> </Pagination>
+    <Pagination  v-if="paginationObj.arrLength > 0" @currentPageVal="currentPageChanged" :pagination="paginationObj"> </Pagination>
     </div>
 
     
@@ -112,6 +113,7 @@ export default {
        this.setLS();
        this.sortList('voteDecreasing');
     },
+    
     sortList(orderType) {
       this.linkList = this.getItemFromLS();
       if(orderType == 'voteDecreasing') {
@@ -137,6 +139,7 @@ export default {
       this.paginationObj.currentPage = 1;
       this.pagination();
     },
+
     pagination() {
       this.linkList = this.getItemFromLS();
       this.paginationObj.arrLength =  this.getLengthFromLS();
@@ -157,8 +160,6 @@ export default {
    }
   },
 
-  
-
   mounted() {
     if(localStorage.getItem('linkList')) {
      this.linkList = this.getItemFromLS();
@@ -172,8 +173,6 @@ export default {
 
 }
 </script>
-
-
 
 <style scoped>
 
@@ -223,7 +222,6 @@ a {
     margin-right: 1rem;
   }
 
-
   .square .voteStatsArea {
     margin: 0;
     background-color: #ececec;
@@ -238,6 +236,13 @@ a {
   .linkAreaDescription p {
     font-weight: 500;
     font-size: 1.2rem;
+  }
+
+  .linkAreaDescription .linkName {
+    margin-bottom: 0.1rem;
+    margin:0;
+    font-weight: 700;
+    text-align:left;
   }
 
   hr {
@@ -311,6 +316,11 @@ a {
     display: block;
   }
 
+  .d-flex-direction-column {
+    display: flex;
+    flex-direction: column;
+  }
+
   .voteDescription {
     color: rgba(0,0,0,1);
     font-size: 0.8rem;
@@ -318,6 +328,20 @@ a {
     font-weight: 400;
     margin:0;
     letter-spacing: 1px;
-   
   }
+
+  .voteArea {
+    max-width: 200px;
+    padding:0;
+    margin:0;
+    opacity: .6;
+    font-size: 10px;
+    text-align:left;
+  }
+
+  .voteButtons p {
+    font-size: 12px;
+    color: #babdbf;
+  }
+
 </style>
