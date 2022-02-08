@@ -1,4 +1,7 @@
-# hbtodo
+## Preview
+
+<img src="https://github.com/emrezeytun/link-vote-VueJS/blob/main/link-vote-gif.gif">
+
 
 ## Project setup
 ```
