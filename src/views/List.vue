@@ -32,10 +32,14 @@
 
 <script>
 
-import CustomSelect from '../components/CustomSelect.vue';
+import CustomSelect from '../components/CustomSelect.vue'
 import Pagination from '../components/Pagination.vue'
 import Modal from '../components/Modal.vue'
 import Notification from '../components/Notification.vue'
+import {utilsGetItemsFromLS} from '../../utils/getItemsFromLS'
+import {utilsPagination, utilsGetPageSize} from '../../utils/pagination'
+import {utilsSetItemsToLS} from '../../utils/setItemsToLS'
+import {utilsSortList} from '../../utils/sortList'
 
 export default {
   name: 'Home',
@@ -61,7 +65,7 @@ export default {
   },
 
   created() {
-  
+    this.linkList = utilsGetItemsFromLS('linkList');
   },
 
   watch: {
@@ -93,7 +97,7 @@ export default {
       }, 1500)
     },
     setLS() {
-      localStorage.setItem('linkList', JSON.stringify(this.linkList))
+      utilsSetItemsToLS('linkList', this.linkList);
     },
     vote(id, value) {
       this.linkList = this.getItemFromLS();
@@ -120,25 +124,7 @@ export default {
     
     sortList(orderType) {
       this.linkList = this.getItemFromLS();
-      if(orderType == 'voteDecreasing') {
-      this.linkList.sort((a,b) => {
-        if(b.count - a.count == 0) { 
-          return b.lastUpdated - a.lastUpdated
-          }
-        else { 
-          return b.count - a.count 
-          }
-      } );
-      }
-      if(orderType == 'voteIncreasing') {
-      this.linkList.sort((a,b) =>   a.count - b.count);
-      }
-      else if (orderType== 'dateIncreasing') {
-        this.linkList.sort((a,b) =>  b.date - a.date);
-      }
-      else if (orderType== 'dateDecreasing') {
-        this.linkList.sort((a,b) =>  a.date - b.date);
-      }
+      this.linkList = utilsSortList(orderType, this.linkList);
       this.setLS();
       this.paginationObj.currentPage = 1;
       this.pagination();
@@ -147,17 +133,17 @@ export default {
     pagination() {
       this.linkList = this.getItemFromLS();
       this.paginationObj.arrLength =  this.getLengthFromLS();
-      this.paginationObj.pageSize = Math.ceil(this.paginationObj.arrLength / this.paginationObj.splitSize);
-      let firstItem = (this.paginationObj.splitSize * (this.paginationObj.currentPage-1));
-      let lastItem = (this.paginationObj.splitSize * (this.paginationObj.currentPage)) -1;
-      this.linkList = this.linkList.filter((data,index) => index >= firstItem && index <= lastItem );
+      this.paginationObj.pageSize = utilsGetPageSize(this.paginationObj.arrLength, this.paginationObj.splitSize);
+      this.linkList = utilsPagination(this.linkList,  this.paginationObj.splitSize , this.paginationObj.currentPage);
+      console.log(this.linkList);
+      
     },
     currentPageChanged(cur) {
       this.paginationObj.currentPage = cur;
       this.pagination();
     },
       getItemFromLS() {
-      return JSON.parse(localStorage.getItem('linkList'));
+      return utilsGetItemsFromLS('linkList');
     },
     getLengthFromLS() {
     return this.getItemFromLS().length;

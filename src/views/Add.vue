@@ -22,6 +22,7 @@
 
 <script>
 import Notification from '../components/Notification'
+import {utilsSetItemsToLS} from '../../utils/setItemsToLS'
 
 export default {
 
@@ -57,12 +58,11 @@ components: {Notification},
         let obj = { "id": this.id, "linkName": this.linkName, "linkUrl": this.linkUrl, count: this.count, date: Date.now(), lastUpdated: Date.now() };
         this.linkList.push(obj);
         this.clearInputs();
-        localStorage.setItem('linkList', JSON.stringify(this.linkList));
+        utilsSetItemsToLS('linkList', this.linkList)
         this.notificationOptions.itemNameForNotification = obj.linkName;
         this.notificationOptions.notificationMessage = ' successfully added.'
         this.showToast();
         this.errorMsg = '';
-        console.log('obbbb',this.notificationOptions)
       }
     },
 
