@@ -19,4 +19,9 @@ describe('CustomSelect.vue', () => {
         expect(viewModel.options.length).toEqual(4);
       });
 
+      it('should be see all option element with extra 1 default option', () => {
+        viewModel.$mount(container);
+        expect(viewModel.$el.querySelectorAll('option').length).toEqual(5);
+      });
+
 })

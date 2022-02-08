@@ -37,7 +37,6 @@ hr {
   margin-bottom: 5px;
 }
 
-
 .navbar-item {
     margin: auto 0;
     font-size: 1.2rem;

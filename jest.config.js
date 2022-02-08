@@ -19,6 +19,7 @@ module.exports = {
       "**/tests/unit/**/Modal.spec.{j,t}s?(x)",
       "**/tests/unit/**/CustomSelect.spec.{j,t}s?(x)",
       "**/tests/unit/**/Pagination.spec.{j,t}s?(x)",
+      "**/tests/unit/**/Notification.spec.{j,t}s?(x)",
   ],
   testURL: 'http://localhost/',
   watchPlugins: [

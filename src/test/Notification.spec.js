@@ -3,7 +3,6 @@ import Vue from 'vue'
 
 describe('Notification.vue', () => {
 
-
       it('should be see objects and it should be work correctly', () => {
 
         const container = document.createElement('div');
